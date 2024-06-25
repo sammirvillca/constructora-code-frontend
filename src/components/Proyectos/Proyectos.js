@@ -17,6 +17,7 @@ import TrashIcon from "@rsuite/icons/Trash";
 import PeoplesIcon from "@rsuite/icons/Peoples";
 import ShoppingBagIcon from "@rsuite/icons/legacy/ShoppingBag";
 import { SelectPicker, Tag } from "rsuite";
+import { API_BASE_URL } from "../../Config/Config";
 
 const { Column, HeaderCell, Cell } = Table;
 const { StringType, NumberType } = Schema.Types;
@@ -61,7 +62,7 @@ const Proyectos = () => {
   const fetchTrabajadores = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/trabajadores"
+        `${API_BASE_URL}/api/v2/trabajadores`
       );
       setTrabajadores(response.data);
     } catch (error) {
@@ -76,7 +77,7 @@ const Proyectos = () => {
   const loadProyectos = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/proyectos"
+        `${API_BASE_URL}/api/v2/proyectos`
       );
       setProyectos(response.data);
     } catch (error) {
@@ -86,7 +87,7 @@ const Proyectos = () => {
 
   const loadEntregas = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/v2/entregas");
+      const response = await axios.get(`${API_BASE_URL}/api/v2/entregas`);
       const proyectosEntregados = response.data.map(
         (entrega) => entrega.proyectoId
       );
@@ -102,7 +103,7 @@ const Proyectos = () => {
     );
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:8080/api/v2/proyectos/${id}`);
+        await axios.delete(`${API_BASE_URL}/api/v2/proyectos/${id}`);
         loadProyectos();
       } catch (error) {
         console.error("Error deleting proyecto:", error);
@@ -129,7 +130,7 @@ const Proyectos = () => {
   const loadCronogramasDisponibles = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/cronogramas-disponibles"
+        `${API_BASE_URL}/api/v2/cronogramas-disponibles`
       );
       setCronogramasDisponibles(response.data);
     } catch (error) {
@@ -140,7 +141,7 @@ const Proyectos = () => {
   const loadTrabajadoresIngCivil = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/trabajadores/ingciviles"
+        `${API_BASE_URL}/api/v2/trabajadores/ingciviles`
       );
       setTrabajadoresIngCivil(response.data);
     } catch (error) {
@@ -151,7 +152,7 @@ const Proyectos = () => {
   const loadPlanosSinVincular = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/planos-sin-vincular"
+        `${API_BASE_URL}/api/v2/planos-sin-vincular`
       );
       setPlanosSinVincular(response.data);
     } catch (error) {
@@ -170,7 +171,7 @@ const Proyectos = () => {
   const handleCreateProyecto = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v2/proyecto",
+        `${API_BASE_URL}/api/v2/proyecto`,
         formValue
       );
       setShowModalCreate(false);
@@ -195,7 +196,7 @@ const Proyectos = () => {
   const handleUpdateProyecto = async () => {
     try {
       await axios.put(
-        `http://localhost:8080/api/v2/proyectos/${currentProyecto.id}`,
+        `${API_BASE_URL}/api/v2/proyectos/${currentProyecto.id}`,
         formValue
       );
       setShowModalEdit(false);

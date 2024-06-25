@@ -16,6 +16,7 @@ import {
 import ArrowLeftIcon from "@rsuite/icons/ArrowLeft";
 import PlusIcon from "@rsuite/icons/Plus";
 import TrashIcon from "@rsuite/icons/Trash";
+import { API_BASE_URL } from "../../Config/Config";
 const { Column, HeaderCell, Cell } = Table;
 
 const ListaDeMaterialesPorProyecto = () => {
@@ -40,7 +41,7 @@ const ListaDeMaterialesPorProyecto = () => {
   const fetchPedidosMateriales = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v2/proyecto/${id}/ordenes-pedido-material`
+        `${API_BASE_URL}/api/v2/proyecto/${id}/ordenes-pedido-material`
       );
       setPedidos(response.data);
     } catch (error) {
@@ -52,7 +53,7 @@ const ListaDeMaterialesPorProyecto = () => {
     setShowModal(true);
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/proveedores"
+        `${API_BASE_URL}/api/v2/proveedores`
       );
       setProveedores(response.data);
     } catch (error) {
@@ -68,7 +69,7 @@ const ListaDeMaterialesPorProyecto = () => {
   const handleProveedorChange = async (proveedorId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v2/proveedor/${proveedorId}/catalogos`
+        `${API_BASE_URL}/api/v2/proveedor/${proveedorId}/catalogos`
       );
       setCatalogosProveedor(response.data);
       setSelectedProveedorId(proveedorId);
@@ -80,7 +81,7 @@ const ListaDeMaterialesPorProyecto = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:8080/api/v2/orden-pedido-material", {
+      await axios.post(`${API_BASE_URL}/api/v2/orden-pedido-material`, {
         ...formData,
         proyectoId: id,
       });
@@ -123,7 +124,7 @@ const ListaDeMaterialesPorProyecto = () => {
   const handleActualizarPedido = async () => {
     try {
       await axios.put(
-        `http://localhost:8080/api/v2/orden-pedido-materiales/${pedidoSeleccionado.id}`,
+        `${API_BASE_URL}/api/v2/orden-pedido-materiales/${pedidoSeleccionado.id}`,
         formData
       );
       fetchPedidosMateriales();
@@ -148,7 +149,7 @@ const ListaDeMaterialesPorProyecto = () => {
     if (confirmDelete) {
       try {
         await axios.delete(
-          `http://localhost:8080/api/v2/orden-pedido-materiales/${pedidoId}`
+          `${API_BASE_URL}/api/v2/orden-pedido-materiales/${pedidoId}`
         );
         fetchPedidosMateriales();
         toaster.push(

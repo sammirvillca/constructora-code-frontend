@@ -16,6 +16,7 @@ import {
 import EditIcon from "@rsuite/icons/Edit";
 import PlusIcon from "@rsuite/icons/Plus";
 import TrashIcon from "@rsuite/icons/Trash";
+import { API_BASE_URL } from "../../Config/Config";
 
 const { Column, HeaderCell, Cell } = Table;
 const { StringType, DateType, NumberType } = Schema.Types;
@@ -53,7 +54,7 @@ const Entrega = () => {
   const loadProyectos = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/proyectos"
+        `${API_BASE_URL}/api/v2/proyectos`
       );
       setProyectos(response.data);
     } catch (error) {
@@ -63,7 +64,7 @@ const Entrega = () => {
 
   const loadClientes = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/v2/clientes");
+      const response = await axios.get(`${API_BASE_URL}/api/v2/clientes`);
       setClientes(response.data);
     } catch (error) {
       console.error("Error fetching clientes:", error);
@@ -72,7 +73,7 @@ const Entrega = () => {
 
   const loadEntregas = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/v2/entregas");
+      const response = await axios.get(`${API_BASE_URL}/api/v2/entregas`);
       console.log("Entregas recibidas:", response.data);
       setEntregas(
         response.data.map((entrega) => ({
@@ -89,7 +90,7 @@ const Entrega = () => {
   const loadProyectosSinEntrega = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/proyectos-sin-entrega"
+        `${API_BASE_URL}/api/v2/proyectos-sin-entrega`
       );
       setProyectosSinEntrega(response.data);
     } catch (error) {
@@ -99,7 +100,7 @@ const Entrega = () => {
 
   const loadProyectosCompletados = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/v2/entregas");
+      const response = await axios.get(`${API_BASE_URL}/api/v2/entregas`);
       const proyectosEntregados = response.data.map(
         (entrega) => entrega.proyectoId
       );
@@ -115,7 +116,7 @@ const Entrega = () => {
     );
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:8080/api/v2/entregas/${id}`);
+        await axios.delete(`${API_BASE_URL}/api/v2/entregas/${id}`);
         loadEntregas();
       } catch (error) {
         console.error("Error deleting entrega:", error);
@@ -159,7 +160,7 @@ const Entrega = () => {
   const handleCreateEntrega = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v2/entrega",
+        `${API_BASE_URL}/api/v2/entrega`,
         formValue
       );
       setShowModalCreate(false);
@@ -185,7 +186,7 @@ const Entrega = () => {
   const handleUpdateEntrega = async () => {
     try {
       await axios.put(
-        `http://localhost:8080/api/v2/entregas/${currentEntrega.id}`,
+        `${API_BASE_URL}/api/v2/entregas/${currentEntrega.id}`,
         formValue
       );
       setShowModalEdit(false);

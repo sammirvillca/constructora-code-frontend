@@ -6,6 +6,7 @@ import TrashIcon from "@rsuite/icons/Trash";
 import EditIcon from "@rsuite/icons/Edit";
 import PlusIcon from "@rsuite/icons/Plus";
 import ListIcon from '@rsuite/icons/List';
+import { API_BASE_URL } from "../../Config/Config";
 const { Column, HeaderCell, Cell } = Table;
 const { StringType, NumberType } = Schema.Types;
 
@@ -30,7 +31,7 @@ const Proveedores = () => {
 
   const loadProveedores = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/v2/proveedores");
+      const response = await axios.get(`${API_BASE_URL}/api/v2/proveedores`);
       setProveedores(response.data);
     } catch (error) {
       console.error("Error fetching proveedores:", error);
@@ -41,7 +42,7 @@ const Proveedores = () => {
     const confirmDelete = window.confirm("¿Estás seguro de eliminar este proveedor?");
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:8080/api/v2/proveedores/${id}`);
+        await axios.delete(`${API_BASE_URL}/api/v2/proveedores/${id}`);
         loadProveedores();
       } catch (error) {
         console.error("Error deleting proveedor:", error);
@@ -82,7 +83,7 @@ const Proveedores = () => {
 
   const handleCreateProveedor = async () => {
     try {
-      await axios.post("http://localhost:8080/api/v2/proveedor", formValue);
+      await axios.post(`${API_BASE_URL}/api/v2/proveedor`, formValue);
       setShowModalCreate(false);
       loadProveedores();
       resetFormValue();
@@ -105,7 +106,7 @@ const Proveedores = () => {
 
   const handleUpdateProveedor = async () => {
     try {
-      await axios.put(`http://localhost:8080/api/v2/proveedores/${currentProveedor.id}`, formValue);
+      await axios.put(`${API_BASE_URL}/api/v2/proveedores/${currentProveedor.id}`, formValue);
       setShowModalEdit(false);
       loadProveedores();
       resetFormValue();

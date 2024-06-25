@@ -10,6 +10,7 @@ import VisibleIcon from '@rsuite/icons/Visible';
 import axios from "axios";
 import { SelectPicker, DatePicker } from "rsuite";
 import moment from "moment";
+import { API_BASE_URL } from "../../Config/Config";
 
 
 
@@ -40,7 +41,7 @@ const DepositosClienteId = () => {
   const fetchDepositosCliente = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v2/clientes/propiedades/depositos/${id}`
+        `${API_BASE_URL}/api/v2/clientes/propiedades/depositos/${id}`
       );
       console.log("Depositos del cliente recibidos:", response.data);
       setDepositosCliente(response.data);
@@ -51,7 +52,7 @@ const DepositosClienteId = () => {
 
   const deleteDepositoCliente = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/api/v2/depositos-cliente/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/v2/depositos-cliente/${id}`);
       setDepositosCliente(depositosCliente.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Error deleting deposito cliente:", error);
@@ -95,7 +96,7 @@ const DepositosClienteId = () => {
 
     try {
       if (editedDepositoId) {
-        await axios.put(`http://localhost:8080/api/v2/depositos-cliente/${editedDepositoId}`, formData, {
+        await axios.put(`${API_BASE_URL}/api/v2/depositos-cliente/${editedDepositoId}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -110,7 +111,7 @@ const DepositosClienteId = () => {
           { placement: "topEnd" }
         );
       } else {
-        const response = await axios.post("http://localhost:8080/api/v2/deposito-cliente", formData, {
+        const response = await axios.post(`${API_BASE_URL}/api/v2/deposito-cliente`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

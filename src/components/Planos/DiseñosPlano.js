@@ -17,6 +17,7 @@ import {
 import EditIcon from "@rsuite/icons/Edit";
 import PlusIcon from "@rsuite/icons/Plus";
 import CheckIcon from "@rsuite/icons/Check";
+import { API_BASE_URL } from "../../Config/Config";
 
 const { Column, HeaderCell, Cell } = Table;
 const { StringType, NumberType, DateType } = Schema.Types;
@@ -59,7 +60,7 @@ const DiseñosPlano = () => {
   const loadDibujosPlano = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/dibujos-planos"
+        `${API_BASE_URL}/api/v2/dibujos-planos`
       );
       console.log("Dibujos plano cargados:", response.data);
       setDibujosPlano(response.data);
@@ -71,7 +72,7 @@ const DiseñosPlano = () => {
   const loadPrerequisitosPlano = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/prerequisitos-no-vinculados"
+        `${API_BASE_URL}/api/v2/prerequisitos-no-vinculados`
       );
       setPrerequisitosPlano(response.data);
     } catch (error) {
@@ -82,7 +83,7 @@ const DiseñosPlano = () => {
   const loadAceptacionesPlano = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/aceptacion-planos"
+        `${API_BASE_URL}/api/v2/aceptacion-planos`
       );
       console.log("Aceptaciones plano cargadas:", response.data);
       setAceptacionesPlano(response.data);
@@ -138,7 +139,7 @@ const DiseñosPlano = () => {
   const handleCreateDibujoPlano = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v2/dibujo-plano",
+        `${API_BASE_URL}/api/v2/dibujo-plano`,
         formValue
       );
       console.log("Dibujo plano creado:", response.data);
@@ -165,7 +166,7 @@ const DiseñosPlano = () => {
   const handleUpdateDibujoPlano = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/v2/dibujo-planos/${selectedDibujoPlano.id}`,
+        `${API_BASE_URL}/api/v2/dibujo-planos/${selectedDibujoPlano.id}`,
         formValue
       );
       console.log("Dibujo plano actualizado:", response.data);
@@ -226,7 +227,7 @@ const DiseñosPlano = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v2/prerequisito/${rowData.prerequisitoPlanoId}`
+        `${API_BASE_URL}/api/v2/prerequisito/${rowData.prerequisitoPlanoId}`
       );
       const prerequisitoPlano = response.data;
       setClienteName(prerequisitoPlano.clienteFullName || "");
@@ -268,12 +269,12 @@ const DiseñosPlano = () => {
       let response;
       if (formValueAceptacion.id) {
         response = await axios.put(
-          `http://localhost:8080/api/v2/aceptacion-planos/${formValueAceptacion.id}`,
+          `${API_BASE_URL}/api/v2/aceptacion-planos/${formValueAceptacion.id}`,
           formValueAceptacion
         );
       } else {
         response = await axios.post(
-          "http://localhost:8080/api/v2/aceptacion-plano",
+          `${API_BASE_URL}/api/v2/aceptacion-plano`,
           formValueAceptacion
         );
       }

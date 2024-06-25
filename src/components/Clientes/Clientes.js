@@ -17,6 +17,7 @@ import PlusIcon from "@rsuite/icons/Plus";
 import TrashIcon from "@rsuite/icons/Trash";
 import TextImageIcon from "@rsuite/icons/TextImage";
 import PublicOpinionIcon from "@rsuite/icons/PublicOpinion";
+import { API_BASE_URL } from "../../Config/Config";
 
 const { Column, HeaderCell, Cell } = Table;
 const { StringType } = Schema.Types;
@@ -40,7 +41,7 @@ const Clientes = () => {
 
   const loadClientes = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/v2/clientes");
+      const response = await axios.get(`${API_BASE_URL}8080/api/v2/clientes`);
       setClientes(response.data);
     } catch (error) {
       console.error("Error fetching clientes:", error);
@@ -53,7 +54,7 @@ const Clientes = () => {
     );
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:8080/api/v2/clientes/${id}`);
+        await axios.delete(`${API_BASE_URL}/api/v2/clientes/${id}`);
         loadClientes();
       } catch (error) {
         console.error("Error deleting cliente:", error);
@@ -92,7 +93,7 @@ const Clientes = () => {
 
   const handleCreateCliente = async () => {
     try {
-      await axios.post("http://localhost:8080/api/v2/cliente", formValue);
+      await axios.post(`${API_BASE_URL}/api/v2/cliente`, formValue);
       setShowModalCreate(false);
       loadClientes();
       toaster.push(
@@ -115,7 +116,7 @@ const Clientes = () => {
   const handleUpdateCliente = async () => {
     try {
       await axios.put(
-        `http://localhost:8080/api/v2/clientes/${currentCliente.id}`,
+        `${API_BASE_URL}/api/v2/clientes/${currentCliente.id}`,
         formValue
       );
       setShowModalEdit(false);

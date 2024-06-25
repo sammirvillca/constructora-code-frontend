@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { Table, Button, Modal, Form, Message, toaster } from "rsuite";
 import ArrowLeftIcon from "@rsuite/icons/ArrowLeft";
 import PlusIcon from "@rsuite/icons/Plus";
+import { API_BASE_URL } from "../../Config/Config";
 const { Column, HeaderCell, Cell } = Table;
 
 const ListaDeTrabajadoresPorProyecto = () => {
@@ -30,8 +31,8 @@ const ListaDeTrabajadoresPorProyecto = () => {
   const fetchTrabajadoresDisponibles = async () => {
     try {
       const [disponiblesResponse, asignadosResponse] = await Promise.all([
-        axios.get("http://localhost:8080/api/v2/trabajadores"),
-        axios.get(`http://localhost:8080/api/v2/proyecto/${id}/trabajadores`),
+        axios.get(`${API_BASE_URL}/api/v2/trabajadores`),
+        axios.get(`${API_BASE_URL}/api/v2/proyecto/${id}/trabajadores`),
       ]);
 
       const disponibles = disponiblesResponse.data;
@@ -64,7 +65,7 @@ const ListaDeTrabajadoresPorProyecto = () => {
   const fetchTrabajadoresAsignados = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v2/proyecto/${id}/trabajadores`
+        `${API_BASE_URL}/api/v2/proyecto/${id}/trabajadores`
       );
       setTrabajadores(response.data);
     } catch (error) {
@@ -80,7 +81,7 @@ const ListaDeTrabajadoresPorProyecto = () => {
       ];
 
       await axios.post(
-        `http://localhost:8080/api/v2/proyecto/${id}/trabajadores`,
+        `${API_BASE_URL}/api/v2/proyecto/${id}/trabajadores`,
         trabajadoresAAsignar
       );
 
@@ -136,7 +137,7 @@ const ListaDeTrabajadoresPorProyecto = () => {
   const handleDesvincularTrabajadores = async () => {
     try {
       await axios.put(
-        `http://localhost:8080/api/v2/proyecto/${id}/desvincular-trabajadores`,
+        `${API_BASE_URL}/api/v2/proyecto/${id}/desvincular-trabajadores`,
         trabajadoresADesvincular
       );
       fetchTrabajadoresAsignados();

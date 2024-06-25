@@ -17,6 +17,7 @@ import EditIcon from "@rsuite/icons/Edit";
 import PlusIcon from "@rsuite/icons/Plus";
 import TrashIcon from "@rsuite/icons/Trash";
 import OpenIcon from "@rsuite/icons/ArrowRight";
+import { API_BASE_URL } from "../../Config/Config";
 
 const { Column, HeaderCell, Cell } = Table;
 const { StringType, NumberType, DateType } = Schema.Types;
@@ -47,7 +48,7 @@ const Cronogramas = () => {
   const loadCronogramas = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/cronogramas"
+        `${API_BASE_URL}/api/v2/cronogramas`
       );
       setCronogramas(response.data);
     } catch (error) {
@@ -61,7 +62,7 @@ const Cronogramas = () => {
     );
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:8080/api/v2/cronogramas/${id}`);
+        await axios.delete(`${API_BASE_URL}/api/v2/cronogramas/${id}`);
         loadCronogramas();
       } catch (error) {
         console.error("Error deleting cronograma:", error);
@@ -101,7 +102,7 @@ const Cronogramas = () => {
   const handleCreateCronograma = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v2/cronograma",
+        `${API_BASE_URL}/api/v2/cronograma`,
         null,
         {
           params: {
@@ -133,7 +134,7 @@ const Cronogramas = () => {
   const handleUpdateCronograma = async () => {
     try {
       await axios.put(
-        `http://localhost:8080/api/v2/cronogramas/${currentCronograma.id}`,
+        `${API_BASE_URL}/api/v2/cronogramas/${currentCronograma.id}`,
         null,
         {
           params: {

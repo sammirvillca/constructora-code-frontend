@@ -10,8 +10,7 @@ import {
   FaTruck,
   FaChartLine
 } from 'react-icons/fa';
-
-const API_BASE_URL = 'http://localhost:8080/api/v2';
+import { API_BASE_URL } from "../../Config/Config";
 
 const DashboardPage = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -29,11 +28,11 @@ const DashboardPage = () => {
       try {
         setLoading(true);
         const [clientes, trabajadores, proyectos, proveedores, entregas] = await Promise.all([
-          axios.get(`${API_BASE_URL}/clientes`),
-          axios.get(`${API_BASE_URL}/trabajadores`),
-          axios.get(`${API_BASE_URL}/proyectos`),
-          axios.get(`${API_BASE_URL}/proveedores`),
-          axios.get(`${API_BASE_URL}/entregas`),
+          axios.get(`${API_BASE_URL}/api/v2/clientes`),
+          axios.get(`${API_BASE_URL}/api/v2/trabajadores`),
+          axios.get(`${API_BASE_URL}/api/v2/proyectos`),
+          axios.get(`${API_BASE_URL}/api/v2/proveedores`),
+          axios.get(`${API_BASE_URL}/api/v2/entregas`),
 
         ]);
 

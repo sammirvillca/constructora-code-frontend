@@ -6,6 +6,7 @@ import SearchIcon from "@rsuite/icons/Search";
 import EditIcon from "@rsuite/icons/Edit";
 import PlusIcon from "@rsuite/icons/Plus";
 import TrashIcon from "@rsuite/icons/Trash";
+import { API_BASE_URL } from "../../Config/Config";
 
 const { Column, HeaderCell, Cell } = Table;
 const { StringType, NumberType } = Schema.Types;
@@ -31,7 +32,7 @@ const Trabajadores = () => {
 
   const loadTrabajadores = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/v2/trabajadores");
+      const response = await axios.get(`${API_BASE_URL}/api/v2/trabajadores`);
       setTrabajadores(response.data);
     } catch (error) {
       console.error("Error fetching trabajadores:", error);
@@ -42,7 +43,7 @@ const Trabajadores = () => {
     const confirmDelete = window.confirm("¿Estás seguro de eliminar este trabajador?");
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:8080/api/v2/trabajadores/${id}`);
+        await axios.delete(`${API_BASE_URL}/api/v2/trabajadores/${id}`);
         loadTrabajadores();
       } catch (error) {
         console.error("Error deleting trabajador:", error);
@@ -92,7 +93,7 @@ const Trabajadores = () => {
 
   const handleCreateTrabajador = async () => {
     try {
-      await axios.post("http://localhost:8080/api/v2/trabajador", formValue);
+      await axios.post(`${API_BASE_URL}/api/v2/trabajador`, formValue);
       setShowModalCreate(false);
       loadTrabajadores();
       resetFormValue();
@@ -115,7 +116,7 @@ const Trabajadores = () => {
 
   const handleUpdateTrabajador = async () => {
     try {
-      await axios.put(`http://localhost:8080/api/v2/trabajadores/${currentTrabajador.id}`, formValue);
+      await axios.put(`${API_BASE_URL}/api/v2/trabajadores/${currentTrabajador.id}`, formValue);
       setShowModalEdit(false);
       loadTrabajadores();
       resetFormValue();

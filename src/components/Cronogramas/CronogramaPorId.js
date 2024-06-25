@@ -6,6 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { useParams, useNavigate } from "react-router-dom";
 import { Modal, Button, Form, DatePicker, Input, Schema, toaster, Message } from "rsuite";
 import ArrowLeftLineIcon from "@rsuite/icons/ArrowLeftLine";
+import { API_BASE_URL } from "../../Config/Config";
 const { StringType } = Schema.Types;
 
 const CronogramaPorId = () => {
@@ -35,7 +36,7 @@ const CronogramaPorId = () => {
 
   const loadCronograma = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/v2/cronograma/${id}`);
+      const response = await axios.get(`${API_BASE_URL}/api/v2/cronograma/${id}`);
       setCronograma(response.data);
     } catch (error) {
       console.error("Error fetching cronograma:", error);
@@ -44,7 +45,7 @@ const CronogramaPorId = () => {
 
   const loadActividades = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/v2/cronogramas/${id}/actividades`);
+      const response = await axios.get(`${API_BASE_URL}/api/v2/cronogramas/${id}/actividades`);
       setActividades(response.data);
     } catch (error) {
       console.error("Error fetching actividades:", error);
@@ -76,7 +77,7 @@ const CronogramaPorId = () => {
   const handleDeleteClick = async (actividadId) => {
     if (window.confirm("¿Estás seguro de eliminar esta actividad?")) {
       try {
-        await axios.delete(`http://localhost:8080/api/v2/actividades/${actividadId}`);
+        await axios.delete(`${API_BASE_URL}/api/v2/actividades/${actividadId}`);
         setActividades(actividades.filter((act) => act.id !== actividadId));
         setShowModal(false);
         toaster.push(
@@ -105,7 +106,7 @@ const CronogramaPorId = () => {
     try {
       let response;
       if (isEdit) {
-        response = await axios.put(`http://localhost:8080/api/v2/actividades/${currentActividad.id}`, formValue);
+        response = await axios.put(`${API_BASE_URL}/api/v2/actividades/${currentActividad.id}`, formValue);
         setActividades(actividades.map((act) => (act.id === currentActividad.id ? response.data : act)));
         toaster.push(
           <Message type="success" header="Éxito" duration={5000}>
@@ -114,7 +115,7 @@ const CronogramaPorId = () => {
           { placement: "topEnd" }
         );
       } else {
-        response = await axios.post(`http://localhost:8080/api/v2/cronogramas/${id}/actividad`, formValue);
+        response = await axios.post(`${API_BASE_URL}/api/v2/cronogramas/${id}/actividad`, formValue);
         setActividades([...actividades, response.data]);
         toaster.push(
           <Message type="success" header="Éxito" duration={5000}>

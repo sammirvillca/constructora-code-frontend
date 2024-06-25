@@ -18,6 +18,7 @@ import ArrowLeftIcon from "@rsuite/icons/ArrowLeft";
 import PlusIcon from "@rsuite/icons/Plus";
 import PeoplesCostomizeIcon from "@rsuite/icons/PeoplesCostomize";
 import axios from "axios";
+import { API_BASE_URL } from "../../Config/Config";
 
 const { Column, HeaderCell, Cell } = Table;
 const { StringType, NumberType } = Schema.Types;
@@ -56,7 +57,7 @@ const PrerequisitosPlanoId = () => {
   const fetchTrabajadores = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/trabajadores"
+        `${API_BASE_URL}/api/v2/trabajadores`
       );
       setTrabajadores(response.data);
     } catch (error) {
@@ -118,7 +119,7 @@ const PrerequisitosPlanoId = () => {
   const fetchPrerequisitoPlano = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v2/clientes/prerequisitos-plano/${id}`
+        `${API_BASE_URL}/api/v2/clientes/prerequisitos-plano/${id}`
       );
       console.log("Datos del cliente recibidos:", response.data);
       setPrerequisitoPlano(response.data);
@@ -152,7 +153,7 @@ const PrerequisitosPlanoId = () => {
     try {
       if (editedPrerequisitoPlanoId) {
         await axios.put(
-          `http://localhost:8080/api/v2/prerequisito-clientes/${editedPrerequisitoPlanoId}`,
+          `${API_BASE_URL}/api/v2/prerequisito-clientes/${editedPrerequisitoPlanoId}`,
           formData
         );
         setPrerequisitoPlano((prevPrerequisitoPlano) =>
@@ -170,7 +171,7 @@ const PrerequisitosPlanoId = () => {
         );
       } else {
         const response = await axios.post(
-          "http://localhost:8080/api/v2/prerequisito-cliente",
+          `${API_BASE_URL}/api/v2/prerequisito-cliente`,
           formData
         );
         setPrerequisitoPlano((prevPrerequisitoPlano) => [
@@ -222,7 +223,7 @@ const PrerequisitosPlanoId = () => {
   const deletePrerequisitoPlano = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:8080/api/v2/prerequisito-clientes/${id}`
+        `${API_BASE_URL}/api/v2/prerequisito-clientes/${id}`
       );
       setPrerequisitoPlano((prevPrerequisitoPlano) =>
         prevPrerequisitoPlano.filter((item) => item.id !== id)

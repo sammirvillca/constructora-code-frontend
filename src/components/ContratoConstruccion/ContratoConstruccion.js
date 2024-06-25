@@ -18,6 +18,7 @@ import EditIcon from "@rsuite/icons/Edit";
 import FileDownloadIcon from "@rsuite/icons/FileDownload";
 import PlusIcon from "@rsuite/icons/Plus";
 import VisibleIcon from '@rsuite/icons/Visible';
+import { API_BASE_URL } from "../../Config/Config";
 
 
 const { Column, HeaderCell, Cell } = Table;
@@ -53,7 +54,7 @@ const ContratoConstruccion = () => {
   const loadProyectos = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/proyectos"
+        `${API_BASE_URL}/api/v2/proyectos`
       );
       setProyectos(response.data);
     } catch (error) {
@@ -64,7 +65,7 @@ const ContratoConstruccion = () => {
   const loadContratoConstrucciones = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/contratos-construcciones"
+        `${API_BASE_URL}/api/v2/contratos-construcciones`
       );
       const contratosData = response.data;
 
@@ -72,7 +73,7 @@ const ContratoConstruccion = () => {
       const contratosConProyectos = await Promise.all(
         contratosData.map(async (contrato) => {
           const proyectoResponse = await axios.get(
-            `http://localhost:8080/api/v2/proyecto/${contrato.proyectoId}`
+            `${API_BASE_URL}/api/v2/proyecto/${contrato.proyectoId}`
           );
           const proyecto = proyectoResponse.data;
           return { ...contrato, proyecto };
@@ -88,7 +89,7 @@ const ContratoConstruccion = () => {
   const loadProyectosNoVinculados = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/proyectos-no-vinculados"
+        `${API_BASE_URL}/api/v2/proyectos-no-vinculados`
       );
       setProyectosNoVinculados(response.data);
     } catch (error) {
@@ -127,7 +128,7 @@ const ContratoConstruccion = () => {
       formData.append("codContConstruccion", formValues.codContConstruccion);
 
       await axios.post(
-        "http://localhost:8080/api/v2/contrato-construccion",
+        `${API_BASE_URL}/api/v2/contrato-construccion`,
         formData,
         {
           headers: {
@@ -163,7 +164,7 @@ const ContratoConstruccion = () => {
       formData.append("codContConstruccion", formValues.codContConstruccion);
 
       await axios.put(
-        `http://localhost:8080/api/v2/contrato-construcciones/${selectedContrato.id}`,
+        `${API_BASE_URL}/api/v2/contrato-construcciones/${selectedContrato.id}`,
         formData,
         {
           headers: {
@@ -198,7 +199,7 @@ const ContratoConstruccion = () => {
     if (confirmDelete) {
       try {
         await axios.delete(
-          `http://localhost:8080/api/v2/contrato-construcciones/${id}`
+          `${API_BASE_URL}/api/v2/contrato-construcciones/${id}`
         );
         loadContratoConstrucciones();
       } catch (error) {

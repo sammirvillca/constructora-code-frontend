@@ -6,6 +6,7 @@ import EditIcon from "@rsuite/icons/Edit";
 import TrashIcon from "@rsuite/icons/Trash";
 import ArrowLeftIcon from "@rsuite/icons/ArrowLeft";
 import PlusIcon from "@rsuite/icons/Plus";
+import { API_BASE_URL } from "../../Config/Config";
 const { Column, HeaderCell, Cell } = Table;
 
 const { StringType, NumberType } = Schema.Types;
@@ -38,7 +39,7 @@ const CatalogoProveedorId = () => {
   const fetchCatalogo = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v2/catalogos-proveedor/proveedor/${id}`
+        `${API_BASE_URL}/api/v2/catalogos-proveedor/proveedor/${id}`
       );
       setCatalogo(response.data);
     } catch (error) {
@@ -55,7 +56,7 @@ const CatalogoProveedorId = () => {
     try {
       if (editedMaterialId) {
         await axios.put(
-          `http://localhost:8080/api/v2/catalogos-proveedor/${editedMaterialId}`,
+          `${API_BASE_URL}/api/v2/catalogos-proveedor/${editedMaterialId}`,
           formData
         );
         setCatalogo((prevCatalogo) =>
@@ -71,7 +72,7 @@ const CatalogoProveedorId = () => {
         );
       } else {
         const response = await axios.post(
-          "http://localhost:8080/api/v2/catalogo-proveedor",
+          `${API_BASE_URL}/api/v2/catalogo-proveedor`,
           {
             ...formData,
             proveedorId: id,
@@ -129,7 +130,7 @@ const CatalogoProveedorId = () => {
   const deleteMaterial = async (materialId) => {
     try {
       await axios.delete(
-        `http://localhost:8080/api/v2/catalogos-proveedor/${materialId}`
+        `${API_BASE_URL}/api/v2/catalogos-proveedor/${materialId}`
       );
       setCatalogo(catalogo.filter((item) => item.id !== materialId));
       toaster.push(

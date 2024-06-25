@@ -9,6 +9,7 @@ import FileDownloadIcon from "@rsuite/icons/FileDownload";
 import PlusIcon from "@rsuite/icons/Plus";
 import VisibleIcon from '@rsuite/icons/Visible';
 import axios from "axios";
+import { API_BASE_URL } from "../../Config/Config";
 const { Column, HeaderCell, Cell } = Table;
 const { StringType } = Schema.Types;
 
@@ -33,7 +34,7 @@ const DatosClienteId = () => {
 
   const fetchDatosCliente = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/v2/clientes/propiedades/${id}`);
+      const response = await axios.get(`${API_BASE_URL}/api/v2/clientes/propiedades/${id}`);
       console.log("Datos del cliente recibidos:", response.data);
       setDatosCliente(response.data);
     } catch (error) {
@@ -43,7 +44,7 @@ const DatosClienteId = () => {
 
   const deleteDatosCliente = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/api/v2/datos-clientes/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/v2/datos-clientes/${id}`);
       setDatosCliente(datosCliente.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Error deleting datos cliente:", error);
@@ -81,7 +82,7 @@ const DatosClienteId = () => {
 
     try {
       if (editedDatosClienteId) {
-        await axios.put(`http://localhost:8080/api/v2/datos-clientes/${editedDatosClienteId}`, formData, {
+        await axios.put(`${API_BASE_URL}/api/v2/datos-clientes/${editedDatosClienteId}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -96,7 +97,7 @@ const DatosClienteId = () => {
           { placement: "topEnd" }
         );
       } else {
-        const response = await axios.post("http://localhost:8080/api/v2/datos-cliente", formData, {
+        const response = await axios.post(`${API_BASE_URL}/api/v2/datos-cliente`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

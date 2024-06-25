@@ -4,6 +4,7 @@ import { Button, ButtonToolbar, DatePicker, Input } from 'rsuite';
 import CloseIcon from '@rsuite/icons/Close';
 import CheckIcon from '@rsuite/icons/Check';
 import axios from 'axios';
+import { API_BASE_URL } from '../../Config/Config';
 
 const AceptacionPlanoId = () => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const AceptacionPlanoId = () => {
 
   const fetchAceptacionPlano = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/v2/aceptacion-plano/${id}`);
+      const response = await axios.get(`${API_BASE_URL}/api/v2/aceptacion-plano/${id}`);
       setAceptacionPlano(response.data);
     } catch (error) {
       console.error('Error fetching aceptación plano:', error);
@@ -37,7 +38,7 @@ const AceptacionPlanoId = () => {
 
   const saveAceptacionPlano = async () => {
     try {
-      await axios.post('http://localhost:8080/api/v2/aceptacion-plano', aceptacionPlano);
+      await axios.post(`${API_BASE_URL}/api/v2/aceptacion-plano`, aceptacionPlano);
       navigate('/planos');
     } catch (error) {
       console.error('Error saving aceptación plano:', error);
@@ -46,7 +47,7 @@ const AceptacionPlanoId = () => {
 
   const updateAceptacionPlano = async () => {
     try {
-      await axios.put(`http://localhost:8080/api/v2/aceptacion-planos/${id}`, aceptacionPlano);
+      await axios.put(`${API_BASE_URL}/api/v2/aceptacion-planos/${id}`, aceptacionPlano);
       navigate('/planos');
     } catch (error) {
       console.error('Error updating aceptación plano:', error);

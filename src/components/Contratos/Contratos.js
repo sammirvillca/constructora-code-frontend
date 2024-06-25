@@ -18,6 +18,7 @@ import EditIcon from "@rsuite/icons/Edit";
 import FileDownloadIcon from "@rsuite/icons/FileDownload";
 import PlusIcon from "@rsuite/icons/Plus";
 import VisibleIcon from '@rsuite/icons/Visible';
+import { API_BASE_URL } from "../../Config/Config";
 
 
 const { Column, HeaderCell, Cell } = Table;
@@ -54,7 +55,7 @@ const Contratos = () => {
   const loadContratos = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/contratos-planos"
+        `${API_BASE_URL}/api/v2/contratos-planos`
       );
       setContratos(response.data);
     } catch (error) {
@@ -65,7 +66,7 @@ const Contratos = () => {
   const fetchClientesNoVinculados = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/propiedades-no-vinculados"
+        `${API_BASE_URL}/api/v2/propiedades-no-vinculados`
       );
       setClientesNoVinculados(response.data);
       console.log("Clientes no vinculados:", response.data);
@@ -77,7 +78,7 @@ const Contratos = () => {
   const fetchPlanosNoVinculados = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v2/dibujo-plano-no-vinculados"
+        `${API_BASE_URL}/api/v2/dibujo-plano-no-vinculados`
       );
       setPlanosNoVinculados(response.data);
       console.log("Planos no vinculados:", response.data);
@@ -143,7 +144,7 @@ const Contratos = () => {
       formData.append("codContrato", formValues.codContrato);
 
       await axios.post(
-        "http://localhost:8080/api/v2/contrato-plano",
+        `${API_BASE_URL}/api/v2/contrato-plano`,
         formData,
         {
           headers: {
@@ -183,7 +184,7 @@ const Contratos = () => {
       formData.append("codContrato", formValues.codContrato);
 
       await axios.put(
-        `http://localhost:8080/api/v2/contrato-planos/${selectedContrato.id}`,
+        `${API_BASE_URL}/api/v2/contrato-planos/${selectedContrato.id}`,
         formData,
         {
           headers: {
@@ -218,7 +219,7 @@ const Contratos = () => {
     if (confirmDelete) {
       try {
         await axios.delete(
-          `http://localhost:8080/api/v2/contrato-planos/${id}`
+          `${API_BASE_URL}/api/v2/contrato-planos/${id}`
         );
         loadContratos();
       } catch (error) {
