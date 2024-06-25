@@ -41,7 +41,7 @@ const Clientes = () => {
 
   const loadClientes = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}8080/api/v2/clientes`);
+      const response = await axios.get(`${API_BASE_URL}/api/v2/clientes`);
       setClientes(response.data);
     } catch (error) {
       console.error("Error fetching clientes:", error);
